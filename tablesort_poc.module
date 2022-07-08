@@ -1,0 +1,22 @@
+<?php
+/** 
+ * @file
+ * A proof of concept of the use of tablesort.js
+ * https://github.com/tristen/tablesort
+ * 
+ * This is hard-coded to attach the library to a table with ID "table-tablesort".
+ * This table MUST exist in the body field of a node
+ */
+
+/**
+ * Implements hook_node_view().
+ */
+function tablesort_poc_node_view($node) {
+  if (!empty($node->body)) {
+    backdrop_add_css(backdrop_get_path('module', 'tablesort_poc') . '/css/tablesort.css');
+    backdrop_add_js(backdrop_get_path('module', 'tablesort_poc') . '/js/tablesort.min.js');
+    backdrop_add_js(backdrop_get_path('module', 'tablesort_poc') . '/js/sorts/tablesort.number.min.js');
+    backdrop_add_js(backdrop_get_path('module', 'tablesort_poc') . '/js/sorts/tablesort.monthname.min.js');
+    backdrop_add_js(backdrop_get_path('module', 'tablesort_poc') . '/js/tablesort_trigger.js');
+  }
+}

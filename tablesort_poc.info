@@ -1,0 +1,4 @@
+name = Tablesort proof of concept
+description = POC of the use of tablesort JS https://github.com/tristen/tablesort
+backdrop = 1.x
+type = module
