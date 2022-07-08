@@ -1,16 +1,12 @@
-(function ($) {
-  Backdrop.behaviors.attachMyTablesort = {
-    attach: function (context, settings) {
-      // This is the most basic setting (see the tablesort github for more options).
 
-      // This is hard-coded to look for a table with ID: 'table-tablesort'.
+Backdrop.behaviors.attachMyTablesort = {
+  attach: function (context, settings) {
 
-      // Change this ID if you so desire, or better yet, pass the ID to the browser by using 
-      // the 'setting' key in the $options parameter of backdrop_add_js. 
-      // To learn how to pass settings see:
-      // https://www.drupal.org/docs/7/api/javascript-api/managing-javascript#settings-javascript
-      // 
-      new Tablesort(document.getElementById('table-tablesort'));
-    }
+    // Retrieve the setting sent by the module. 
+    let table_id = settings.tablesort_poc.table_id;
+
+    // Trigger/attach the tablesort behavior to the table.
+    // This is the most basic setting. See the original library for more options.
+    new Tablesort(document.getElementById(table_id));
   }
-})(jQuery);
+}

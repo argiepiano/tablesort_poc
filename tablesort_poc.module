@@ -12,11 +12,30 @@
  * Implements hook_node_view().
  */
 function tablesort_poc_node_view($node) {
-  if (!empty($node->body)) {
-    backdrop_add_css(backdrop_get_path('module', 'tablesort_poc') . '/css/tablesort.css');
-    backdrop_add_js(backdrop_get_path('module', 'tablesort_poc') . '/js/tablesort.min.js');
-    backdrop_add_js(backdrop_get_path('module', 'tablesort_poc') . '/js/sorts/tablesort.number.min.js');
-    backdrop_add_js(backdrop_get_path('module', 'tablesort_poc') . '/js/sorts/tablesort.monthname.min.js');
-    backdrop_add_js(backdrop_get_path('module', 'tablesort_poc') . '/js/tablesort_trigger.js');
+
+  // Change this variable to match the DOM ID of the table.
+  $table_id = 'table-tablesort';
+  
+  if (isset($node->body) && strpos($node->body[LANGUAGE_NONE][0]['value'], $table_id) !== FALSE) {
+    $path = backdrop_get_path('module', 'tablesort_poc');
+
+    // Attach the js and css libraries.
+    $node->content['#attached']['css'][] = $path . '/css/tablesort.css';
+    $node->content['#attached']['js'][] = $path . '/js/tablesort.min.js';
+    $node->content['#attached']['js'][] = $path . '/js/sorts/tablesort.number.min.js';
+    $node->content['#attached']['js'][] = $path . '/js/sorts/tablesort.monthname.min.js';
+    
+    // Send the table ID as a setting to the js triggering script. See tablesort_trigger.js
+    $node->content['#attached']['js'][] = array(
+      'type' => 'setting',
+      'data' => array(
+        'tablesort_poc' => array(
+          'table_id' => $table_id,
+        ),
+      ),
+    );
+
+    // Attach the triggering js script.
+    $node->content['#attached']['js'][] = $path . '/js/tablesort_trigger.js';
   }
 }
